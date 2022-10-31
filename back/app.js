@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+
 //Import module path pour la gestion de chemins de stockage
 const path = require("path");
 
@@ -28,11 +29,11 @@ const morgan = require('morgan');
 
 //Connexion avec la base de données
 mongoose
-.connect(
-  'mongodb+srv://Gautier50:104A4B77@new-cluster.vijhrbg.mongodb.net/?retryWrites=true&w=majority'
+  .connect(
+    "mongodb+srv://Gautier:104A4B77@cluster-p6.ianjtcf.mongodb.net/?retryWrites=true&w=majority"
   )
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
   
   // Récupère le corps des requetes post
   app.use(express.json());
