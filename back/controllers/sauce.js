@@ -4,7 +4,7 @@ const Sauce = require("../models/sauce");
 const fs = require("fs");
 
 //Export du modele creation de sauce
-exports.createSauces = (req, res, next) => {
+exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   delete sauceObject._userId;
