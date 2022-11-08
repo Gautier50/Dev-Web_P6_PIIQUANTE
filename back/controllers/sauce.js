@@ -11,7 +11,6 @@ exports.createSauce = (req, res, next) => {
 
   const sauce = new Sauce({
     ...sauceObject,
-    userId: req.auth.userId,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
@@ -85,3 +84,6 @@ exports.deleteOneSauce = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+// Controlleur pour pour liker/disliker une sauce
+
