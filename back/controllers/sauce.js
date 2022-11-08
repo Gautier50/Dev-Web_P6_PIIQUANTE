@@ -86,4 +86,66 @@ exports.deleteOneSauce = (req, res, next) => {
 };
 
 // Controlleur pour pour liker/disliker une sauce
+exports.likeAndDislike = (req, res, next) => {
+  let like = req.body.like;
+  let userId = req.body.userId;
+  let sauceId = req.params.id;
 
+  switch (like) {
+    // like = case est égal à 1 on incremente le like de +1
+    case 1:
+      Sauce.updateOne(
+        {
+          _id: sauceId,
+        },
+        {
+          $push: { usersLiked: userId },
+          $inc: { likes: +1 },
+        }
+      )
+        .then(() => {
+          res.status(200).json({ message: "like ajouté !" });
+        })
+        .catch((error) => res.status(400).json({ error }));
+      break;
+
+    // Permet de modifié un like
+    case 0:
+      Sauce.findOne({ _id: sauceId })
+        .then((sauce) => {
+          if (sauce.usersLiked.includes(userId)) {
+            Sauce.updateOne(
+              { _id: sauceId },
+              { $pull: { usersLiked: userId }, $inc: { likes: -1 } }
+            )
+              .then(() => res.status(200).json({ message: "like modifié !" }))
+              .catch((error) => res.status(400).json({ error }));
+          }
+          if (sauce.usersDisliked.includes(userId)) {
+            Sauce.updateOne(
+              { _id: sauceId },
+              { $pull: { usersDisliked: userId }, $inc: { likes: -1 } }
+            )
+              .then(() =>
+                res.status(200).json({ message: "disliked modifié !" })
+              )
+              .catch((error) => res.status(400).json({ error }));
+          }
+        })
+        .catch((error) => res.status(404).json({ error }));
+      break;
+
+    // permet de disliker une sauce
+    case -1:
+      Sauce.updateOne(
+        { _id: sauceId },
+        { $push: { usersDisliked: userId }, $inc: { dislikes: +1 } }
+      )
+        .then(() => res.status(200).json({ message: "disliked ajouté!" }))
+        .catch((error) => res.status(400).json({ error }));
+      break;
+
+    default:
+      console.log(error);
+  }
+};
