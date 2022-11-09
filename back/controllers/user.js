@@ -9,13 +9,11 @@ const jwt = require("jsonwebtoken");
 
 // Fonction Signup //
 exports.signup = (req, res, next) => {
-  console.log("========");
   console.log(req.body.password);
 
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
-      console.log("test");
       const user = new User({
         email: req.body.email,
         password: hash,
