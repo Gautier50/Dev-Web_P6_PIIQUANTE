@@ -11,15 +11,15 @@ const sauceCtrl = require('../controllers/sauce');
 
 // Route pour récupérer une sauce 
  router.get('/:id',auth, sauceCtrl.getOneSauce);
- //  Route pour récupérer toute les sauces
+ // Route pour récupérer toute les sauces
   router.get('/' ,auth, sauceCtrl.getAllSauce);
-//Route post pour la création d'une sauce 
+// Route post pour la création d'une sauce 
  router.post('/', auth, multer, sauceCtrl.createSauce);
-//  Route pour modifier  une sauce
+// Route pour modifier  une sauce
 router.put('/:id',auth, multer, sauceCtrl.modifySauce);
 // Route pour supprimer une sauce 
  router.delete('/:id', auth, multer,  sauceCtrl.deleteOneSauce)
-//  Route pour liker ou disliker une sauce 
+// Route pour liker ou disliker une sauce 
  router.post('/:id/like', auth, sauceCtrl.likeAndDislike)
 
 //Export module router
